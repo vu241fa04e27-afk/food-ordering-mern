@@ -14,9 +14,9 @@
 | **Lead / Member 1** | **[Student 1 Name]** — Reg No: `VU241FA04E27` (Lead Developer, GitHub: `vu241fa04e27-afk`) |
 | **Member 2** | **[Student 2 Name]** — Reg No: `[Registration Number 2]` (Frontend & UI/UX Developer) |
 | **Member 3** | **[Student 3 Name]** — Reg No: `[Registration Number 3]` (Backend & Database Developer) |
-| **GitHub Repository**| `https://github.com/vu241fa04e27-afk/food-ordering-website` |
-| **Live Frontend URL**| *(Add your deployed frontend link here)* |
-| **Live Backend API** | *(Add your deployed backend link here)* |
+| **GitHub Repository**| `https://github.com/vu241fa04e27-afk/food-ordering-mern` |
+| **Live Frontend URL**| **`https://food-ordering-mern-vki3.vercel.app`** |
+| **Live Backend API** | **`https://food-ordering-mern-hwx4.vercel.app/api`** |
 
 ---
 
@@ -91,65 +91,7 @@ The application offers two unified experiences:
 ```
 food-ordering-website/
 ├── frontend/                     # React + Vite Frontend
-│   ├── src/
-│   │   ├── assets/               # Visual assets & images
-│   │   ├── components/
-│   │   │   └── NavBar.jsx        # Glassmorphic responsive header
-│   │   ├── context/
-│   │   │   ├── AuthContext.jsx   # Global user auth state
-│   │   │   └── CartContext.jsx   # Persistent localStorage cart state
-│   │   ├── pages/
-│   │   │   ├── Home.jsx          # Hero, categories ribbon, trending dishes
-│   │   │   ├── Menu.jsx          # Live search, category tabs, food cards
-│   │   │   ├── FoodDetails.jsx   # Single item plate view & quantity selector
-│   │   │   ├── Cart.jsx          # Cart review & free delivery calculator
-│   │   │   ├── Checkout.jsx      # Address input & COD confirmation
-│   │   │   ├── MyOrders.jsx      # Order history archive
-│   │   │   ├── OrderTracking.jsx # Visual kitchen milestone tracker
-│   │   │   ├── Profile.jsx       # User profile editor
-│   │   │   ├── AdminDashboard.jsx# KPI stats, category creator, order switcher
-│   │   │   ├── About.jsx         # Story, 3 pillars, culinary gallery
-│   │   │   ├── Contact.jsx       # Contact details & inquiry form
-│   │   │   ├── Login.jsx         # User login form
-│   │   │   └── Register.jsx      # User registration form
-│   │   ├── services/
-│   │   │   └── api.js            # Axios client with JWT interceptor
-│   │   ├── App.jsx               # React Router route definitions
-│   │   ├── index.css             # UI/UX Pro Max culinary design system
-│   │   └── main.jsx              # React DOM entrypoint
-│   ├── package.json
-│   ├── vercel.json               # SPA routing rewrite rule
-│   └── vite.config.js
-│
 ├── backend/                      # Node.js + Express Backend
-│   ├── config/
-│   │   └── db.js                 # Mongoose Atlas connection handler
-│   ├── controllers/
-│   │   ├── authController.js     # User registration & login
-│   │   ├── foodController.js     # Food items CRUD
-│   │   ├── categoryController.js # Category CRUD
-│   │   ├── orderController.js    # Order creation, my-orders, status update
-│   │   └── userController.js     # Profile get & update
-│   ├── middleware/
-│   │   ├── auth.js               # JWT bearer verification middleware
-│   │   └── admin.js              # Admin role authorization guard
-│   ├── models/
-│   │   ├── User.js               # User schema
-│   │   ├── Food.js               # Food item schema
-│   │   ├── Order.js              # Order & items schema
-│   │   └── Category.js           # Category schema
-│   ├── routes/
-│   │   ├── auth.js               # /api/auth routes
-│   │   ├── food.js               # /api/foods routes
-│   │   ├── category.js           # /api/categories routes
-│   │   ├── order.js              # /api/orders routes
-│   │   ├── user.js               # /api/users profile routes
-│   │   └── userAdmin.js          # /api/users admin user list
-│   ├── seed.js                   # Database seed script (22 foods + 8 categories)
-│   ├── server.js                 # Express server bootstrap & routes
-│   ├── package.json
-│   └── vercel.json               # Serverless Node function config
-│
 ├── PRESENTATION.md               # 10-Slide Project Presentation outline
 ├── .gitignore
 ├── .env.example
@@ -158,89 +100,9 @@ food-ordering-website/
 
 ---
 
-## 🚀 6. Installation & Execution Guide
-
-### Prerequisites
-- Node.js (v18 or higher)
-- Git
-- MongoDB Atlas cluster URL
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/vu241fa04e27-afk/food-ordering-website.git
-cd food-ordering-website
-```
-
-### 2. Backend Setup
-```bash
-cd backend
-npm install
-```
-Create a `.env` file in the `backend/` folder:
-```ini
-PORT=5000
-MONGODB_URI=your_mongodb_atlas_connection_string
-JWT_SECRET=your_secret_jwt_key
-CLIENT_ORIGIN=http://localhost:5173
-```
-Populate the database with sample dishes and admin account:
-```bash
-node seed.js
-```
-Start the backend server:
-```bash
-node server.js
-# Or in watch mode:
-npm run dev
-```
-
-### 3. Frontend Setup
-In a new terminal window:
-```bash
-cd ../frontend
-npm install
-```
-Create a `.env` file in the `frontend/` folder:
-```ini
-VITE_API_URL=http://localhost:5000/api
-```
-Start the frontend development server:
-```bash
-npm run dev
-```
-Open **`http://localhost:5173`** in your browser.
-
----
-
-## 🔑 7. Demo Credentials
+## 🔑 6. Demo Credentials
 
 | Role | Email | Password | Access |
 |---|---|---|---|
 | **Admin** | `admin@example.com` | `admin123` | Full Admin Dashboard (`/admin`), Category Manager, Food CRUD, Order Dispatcher |
 | **Customer** | *(Create new via `/register`)* | *(Your choice)* | Browse, Add to Cart, Checkout, Live Order Tracking, Profile |
-
----
-
-## 🌐 8. Deployment Instructions (Vercel)
-
-### Backend Deployment:
-1. Push your code to GitHub.
-2. In Vercel, click **"Add New Project"** → Import your repository.
-3. Set **Root Directory** to `backend`.
-4. Under **Environment Variables**, add:
-   - `MONGODB_URI`: Your MongoDB Atlas URI.
-   - `JWT_SECRET`: Any secure random secret string.
-   - `CLIENT_ORIGIN`: Your deployed frontend URL.
-5. Click **Deploy**. Note down your Backend URL (e.g., `https://food-backend.vercel.app`).
-
-### Frontend Deployment:
-1. In Vercel, click **"Add New Project"** → Import the same repository.
-2. Set **Root Directory** to `frontend`.
-3. Under **Environment Variables**, add:
-   - `VITE_API_URL`: `https://food-backend.vercel.app/api`
-4. Click **Deploy**. Your food ordering website is now live globally!
-
----
-
-## 📄 9. Project Presentation
-A detailed, university-format 10-slide PowerPoint content structure is stored in **`PRESENTATION.md`** inside this repository.
