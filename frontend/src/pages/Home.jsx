@@ -42,7 +42,6 @@ function Home() {
 
   const handleQuickAdd = (food, e) => {
     addToCart(food);
-    // Trigger celebratory mini-confetti burst
     const rect = e.currentTarget.getBoundingClientRect();
     confetti({
       particleCount: 25,
@@ -62,7 +61,7 @@ function Home() {
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative' }}>
       <NavBar />
 
-      {/* Floating Success Toast notification */}
+      {/* Floating Success Toast */}
       {addedPopup && (
         <div style={{
           position: 'fixed',
@@ -85,9 +84,9 @@ function Home() {
       )}
 
       {/* Hero Section */}
-      <section style={{
+      <section className="hero-grid" style={{
         position: 'relative',
-        padding: '3.5rem 2rem 5.5rem',
+        padding: '3rem 2rem 5.5rem',
         maxWidth: '1280px',
         margin: '0 auto',
         width: '100%',
@@ -96,7 +95,7 @@ function Home() {
         alignItems: 'center',
         gap: '4rem'
       }}>
-        {/* Animated background ambient glow spheres */}
+        {/* Glow Spheres */}
         <div style={{
           position: 'absolute',
           top: '5%',
@@ -114,16 +113,11 @@ function Home() {
           right: '2%',
           width: '420px',
           height: '420px',
-          background: 'rgba(245, 158, 11, 0.14)',
+          background: 'rgba(245, 158, 11, 0.18)',
           borderRadius: '50%',
           filter: 'blur(110px)',
           zIndex: -1
         }} />
-
-        {/* Floating food icons for culinary atmosphere */}
-        <div className="floating-food-icon anim-float" style={{ top: '10%', right: '48%', fontSize: '2.4rem' }}>🍕</div>
-        <div className="floating-food-icon anim-float-rev" style={{ top: '65%', left: '2%', fontSize: '2.6rem' }}>🍔</div>
-        <div className="floating-food-icon anim-float" style={{ bottom: '10%', right: '4%', fontSize: '2.2rem' }}>🍚</div>
 
         {/* Hero Left Content */}
         <div>
@@ -140,7 +134,7 @@ function Home() {
             marginBottom: '1.5rem',
             border: '1px solid rgba(255, 71, 19, 0.2)'
           }}>
-            <Sparkles size={16} /> <span>PREMIUM MASTER CHEF SELECTIONS</span>
+            <Flame size={18} color="var(--primary)" /> <span>SIZZLING CHARCOAL GRILL SPECIALS</span>
           </div>
 
           <h1 style={{
@@ -150,15 +144,15 @@ function Home() {
             marginBottom: '1.5rem',
             color: 'var(--text-primary)'
           }}>
-            Delicious Food <br />
-            Delivered At <br />
+            Juicy Grilled <br />
+            Feasts Delivered <br />
             <span style={{
               background: 'var(--primary-gradient)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               display: 'inline-block'
             }}>
-              Lightning Speed.
+              Hot & Sizzling.
             </span>
           </h1>
 
@@ -169,7 +163,7 @@ function Home() {
             marginBottom: '2.4rem',
             maxWidth: '520px'
           }}>
-            Indulge in royal biryanis, authentic cheesy wood-fired pizzas, gourmet grilled burgers, and decadent chocolate treats. Cooked fresh, packed hot.
+            Savor our fire-roasted peri-peri barbecue chicken, slow-cooked royal biryanis, and artisan wood-fired pizzas. Marinated in secret spices and flame-grilled to perfection.
           </p>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.2rem', alignItems: 'center' }}>
@@ -178,7 +172,7 @@ function Home() {
               <ArrowRight size={20} />
             </Link>
             <Link to="/about" className="btn-pro-secondary" style={{ padding: '1rem 2rem', fontSize: '1.05rem' }}>
-              <span>Explore Story</span>
+              <span>Explore Menu</span>
             </Link>
           </div>
 
@@ -208,45 +202,67 @@ function Home() {
           </div>
         </div>
 
-        {/* Hero Right Interactive Composition Card */}
+        {/* HERO RIGHT: LARGE ANIMATED CHARCOAL GRILL CHICKEN */}
         <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
-          <div className="anim-float" style={{
-            position: 'relative',
-            width: '100%',
-            maxWidth: '480px',
-            borderRadius: '36px',
-            overflow: 'hidden',
-            boxShadow: '0 30px 70px -15px rgba(255, 71, 19, 0.35)',
-            border: '6px solid #fff'
-          }}>
+          <div 
+            className="grill-chicken-hero-container anim-grill-sizzle" 
+            style={{
+              position: 'relative',
+              width: '100%',
+              maxWidth: '520px',
+              borderRadius: '40px',
+              overflow: 'hidden',
+              border: '6px solid #fff',
+              background: '#0f1218'
+            }}
+          >
+            {/* High-Resolution Smoky Roasted Tandoori Charcoal Chicken */}
             <img 
-              src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800" 
-              alt="Gourmet Restaurant Spread"
-              style={{ width: '100%', height: '500px', objectFit: 'cover', display: 'block' }}
+              src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=1000" 
+              alt="Artisanal Flame-Grilled Chicken Feast"
+              className="grill-chicken-hero-img"
+              style={{
+                width: '100%',
+                height: '520px',
+                objectFit: 'cover',
+                display: 'block',
+                transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.08)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
             />
+
+            {/* Glowing Sizzle Overlay Gradient with Tag */}
             <div style={{
               position: 'absolute',
               bottom: 0,
               left: 0,
               right: 0,
-              background: 'linear-gradient(to top, rgba(15, 18, 24, 0.95) 0%, rgba(15, 18, 24, 0.6) 60%, transparent 100%)',
-              padding: '2.5rem 2rem 1.8rem',
+              background: 'linear-gradient(to top, rgba(15, 18, 24, 0.96) 0%, rgba(15, 18, 24, 0.6) 55%, transparent 100%)',
+              padding: '2.8rem 2.2rem 2rem',
               color: '#fff'
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem' }}>
                 <span style={{
                   background: 'var(--primary-gradient)',
-                  padding: '0.3rem 0.85rem',
+                  padding: '0.35rem 0.95rem',
                   borderRadius: 'var(--radius-pill)',
-                  fontSize: '0.78rem',
-                  fontWeight: 800,
-                  textTransform: 'uppercase'
-                }}>Daily Special</span>
-                <span style={{ fontSize: '0.8rem', color: '#fcd34d', fontWeight: 700 }}>🔥 40% OFF CODE: FEAST</span>
+                  fontSize: '0.82rem',
+                  fontWeight: 900,
+                  textTransform: 'uppercase',
+                  boxShadow: '0 4px 14px var(--primary-glow)'
+                }}>
+                  🔥 CHEF'S SIGNATURE GRILL
+                </span>
+                <span style={{ fontSize: '0.84rem', color: '#fcd34d', fontWeight: 800 }}>
+                  FLAME ROASTED 30 MINS
+                </span>
               </div>
-              <h3 style={{ color: '#fff', fontSize: '1.6rem', fontWeight: 900 }}>Gourmet Sizzling Plate</h3>
-              <p style={{ color: '#d1d5db', fontSize: '0.92rem', marginTop: '0.3rem' }}>
-                Loaded with fresh farm veggies, slow roasted spices & artisan dips.
+              <h3 style={{ color: '#fff', fontSize: '1.8rem', fontWeight: 900 }}>
+                Smoky Tandoori Roast Chicken
+              </h3>
+              <p style={{ color: '#d1d5db', fontSize: '0.94rem', marginTop: '0.4rem', lineHeight: 1.5 }}>
+                Basted in lemon herb butter, paprika & roasted crushed cumin. Served sizzling with mint chutney.
               </p>
             </div>
           </div>
@@ -254,13 +270,13 @@ function Home() {
           {/* Floating Live Tracking Badge */}
           <div className="anim-float-rev" style={{
             position: 'absolute',
-            top: '12%',
-            left: '-24px',
+            top: '8%',
+            left: '-20px',
             background: 'rgba(255, 255, 255, 0.95)',
             backdropFilter: 'blur(16px)',
             padding: '1rem 1.4rem',
             borderRadius: '24px',
-            boxShadow: '0 20px 45px rgba(0,0,0,0.12)',
+            boxShadow: '0 20px 45px rgba(0,0,0,0.14)',
             display: 'flex',
             alignItems: 'center',
             gap: '1rem',
@@ -293,13 +309,13 @@ function Home() {
           {/* Floating Rating Pill */}
           <div style={{
             position: 'absolute',
-            bottom: '10%',
-            right: '-20px',
+            bottom: '8%',
+            right: '-18px',
             background: 'rgba(255, 255, 255, 0.95)',
             backdropFilter: 'blur(16px)',
-            padding: '0.8rem 1.3rem',
+            padding: '0.85rem 1.4rem',
             borderRadius: '20px',
-            boxShadow: '0 16px 40px rgba(0,0,0,0.12)',
+            boxShadow: '0 16px 40px rgba(0,0,0,0.14)',
             display: 'flex',
             alignItems: 'center',
             gap: '0.6rem',
@@ -307,8 +323,8 @@ function Home() {
             zIndex: 10
           }}>
             <Star size={20} fill="#f59e0b" color="#f59e0b" />
-            <span style={{ fontWeight: 900, fontSize: '1rem', color: 'var(--text-primary)' }}>4.9</span>
-            <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>(500+ reviews)</span>
+            <span style={{ fontWeight: 900, fontSize: '1.05rem', color: 'var(--text-primary)' }}>4.95</span>
+            <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>(850+ reviews)</span>
           </div>
         </div>
       </section>
@@ -405,7 +421,7 @@ function Home() {
         </div>
       </section>
 
-      {/* Trending Dishes Showcase with Quick-Add Animation */}
+      {/* Trending Dishes Showcase */}
       <section style={{
         padding: '3rem 2rem 6rem',
         maxWidth: '1280px',
@@ -431,7 +447,7 @@ function Home() {
             </h2>
           </div>
           <Link to="/menu" className="btn-pro-secondary" style={{ padding: '0.7rem 1.6rem' }}>
-            <span>Browse All {featuredFoods.length > 0 ? '22+' : ''} Dishes</span>
+            <span>Browse All Dishes</span>
             <ArrowRight size={17} />
           </Link>
         </div>
@@ -443,7 +459,6 @@ function Home() {
         }}>
           {featuredFoods.map((food) => (
             <div key={food._id} className="food-card-pro">
-              {/* Image Container with Floating Badges */}
               <div style={{ position: 'relative', height: '210px', overflow: 'hidden' }}>
                 <img
                   src={food.image}
@@ -489,7 +504,6 @@ function Home() {
                 </span>
               </div>
 
-              {/* Card Body */}
               <div style={{ padding: '1.6rem', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
                 <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.45rem' }}>
                   {food.name}
@@ -504,7 +518,6 @@ function Home() {
                   {food.description}
                 </p>
 
-                {/* Actions */}
                 <div style={{ display: 'flex', gap: '0.8rem' }}>
                   <button
                     onClick={(e) => handleQuickAdd(food, e)}
@@ -534,57 +547,6 @@ function Home() {
               </div>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* Pro Max Service Highlights */}
-      <section style={{
-        background: 'linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(255,245,238,0.95) 100%)',
-        padding: '5.5rem 2rem',
-        borderTop: '1px solid rgba(0,0,0,0.05)',
-        borderBottom: '1px solid rgba(0,0,0,0.05)'
-      }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', textAlign: 'center' }}>
-          <span style={{
-            color: 'var(--primary)',
-            fontWeight: 800,
-            fontSize: '0.88rem',
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase'
-          }}>THE FOODHUB PROMISE</span>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 900, margin: '0.4rem 0 3.5rem' }}>
-            Why Thousands of Foodies Choose Us
-          </h2>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '2.2rem'
-          }}>
-            {[
-              { icon: <Clock size={36} color="#ff4713" />, title: 'Lightning Fast 25-Min Delivery', desc: 'Predictive routing and kitchen dispatch ensure your dishes arrive hot and fresh.' },
-              { icon: <Flame size={36} color="#ff4713" />, title: 'Master Chef Recipes', desc: '100% authentic spice blends, artisanal cheeses and organic fresh vegetables.' },
-              { icon: <ShieldCheck size={36} color="#ff4713" />, title: 'Zero Risk Cash on Delivery', desc: 'Verify your order right at your doorstep before handing over cash or paying via UPI.' },
-            ].map((f, i) => (
-              <div key={i} className="pro-glass" style={{ padding: '2.8rem 2.2rem', textAlign: 'left', borderRadius: '28px' }}>
-                <div style={{
-                  width: '64px',
-                  height: '64px',
-                  borderRadius: '20px',
-                  background: 'var(--primary-light)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: '1.6rem',
-                  boxShadow: '0 8px 20px var(--primary-glow)'
-                }}>
-                  {f.icon}
-                </div>
-                <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '0.8rem' }}>{f.title}</h3>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: 1.65 }}>{f.desc}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
