@@ -84,6 +84,11 @@ button {
   transition: all 0.3s var(--ease-smooth);
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 /* ============================================================
    NEO-GLASS & CARDS (UI/UX PRO MAX)
    ============================================================ */
@@ -135,6 +140,7 @@ button {
   position: relative;
   overflow: hidden;
   isolation: isolate;
+  text-align: center;
 }
 
 .btn-pro-primary::before {
@@ -174,6 +180,7 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
+  text-align: center;
 }
 
 .btn-pro-secondary:hover {
@@ -190,28 +197,17 @@ button {
 
 @keyframes floatGentle {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-14px) rotate(2deg); }
+  50% { transform: translateY(-12px) rotate(1.5deg); }
 }
 
 @keyframes floatReverse {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(12px) rotate(-2deg); }
-}
-
-@keyframes steamRise {
-  0% { opacity: 0; transform: translateY(0) scale(0.8); }
-  50% { opacity: 0.6; transform: translateY(-12px) scale(1.2); }
-  100% { opacity: 0; transform: translateY(-24px) scale(1.5); }
+  50% { transform: translateY(10px) rotate(-1.5deg); }
 }
 
 @keyframes pulsePill {
   0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 71, 19, 0.4); }
   50% { transform: scale(1.03); box-shadow: 0 0 0 8px rgba(255, 71, 19, 0); }
-}
-
-@keyframes shimmerGlow {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
 }
 
 .anim-float {
@@ -228,14 +224,14 @@ button {
 
 /* Category Tab Pill Active State */
 .cat-pill {
-  padding: 0.75rem 1.6rem;
+  padding: 0.65rem 1.3rem;
   border-radius: var(--radius-pill);
   font-weight: 800;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.5rem;
   background: rgba(255, 255, 255, 0.85);
   color: var(--text-primary);
   border: 1.5px solid rgba(0, 0, 0, 0.05);
@@ -244,30 +240,30 @@ button {
 }
 
 .cat-pill:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   border-color: rgba(255, 71, 19, 0.4);
   color: var(--primary);
-  box-shadow: 0 8px 20px rgba(255, 71, 19, 0.12);
+  box-shadow: 0 6px 16px rgba(255, 71, 19, 0.12);
 }
 
 .cat-pill.active {
   background: var(--primary-gradient);
   color: #fff !important;
   border-color: transparent;
-  box-shadow: 0 10px 24px var(--primary-glow);
-  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px var(--primary-glow);
+  transform: translateY(-2px) scale(1.04);
 }
 
-/* Input Styles */
+/* Form Inputs */
 input, textarea, select {
   font-family: inherit;
   width: 100%;
-  padding: 0.9rem 1.2rem;
+  padding: 0.85rem 1.1rem;
   border-radius: var(--radius-sm);
   border: 1.5px solid #e3e7ee;
   background: rgba(255, 255, 255, 0.95);
   color: var(--text-primary);
-  font-size: 0.96rem;
+  font-size: 0.95rem;
   transition: all 0.25s ease;
 }
 
@@ -278,11 +274,58 @@ input:focus, textarea:focus, select:focus {
   background: #fff;
 }
 
-/* Floating emojis decorative backdrop */
-.floating-food-icon {
-  position: absolute;
-  pointer-events: none;
-  user-select: none;
-  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
-  z-index: 0;
+/* ============================================================
+   RESPONSIVE MEDIA QUERIES (MOBILE OPTIMIZATIONS)
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  .desktop-user-actions {
+    display: none !important;
+  }
+  .mobile-hamburger {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 2.1rem !important;
+    line-height: 1.15 !important;
+  }
+
+  h2 {
+    font-size: 1.7rem !important;
+  }
+
+  /* Cart pill responsive */
+  .cart-text {
+    display: none;
+  }
+
+  /* Padding reductions on mobile */
+  main {
+    padding: 1.5rem 1rem 4rem !important;
+  }
+
+  .pro-glass {
+    padding: 1.6rem 1.2rem !important;
+    border-radius: 20px !important;
+  }
+
+  .btn-pro-primary, .btn-pro-secondary {
+    width: 100%;
+    padding: 0.85rem 1.4rem !important;
+    font-size: 0.95rem !important;
+  }
+
+  .floating-food-icon {
+    display: none !important;
+  }
 }

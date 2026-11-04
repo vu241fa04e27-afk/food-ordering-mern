@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { 
   ShoppingBag, User, LogOut, LayoutDashboard, Flame, 
-  Utensils, Compass, PhoneCall, Sparkles, Heart 
+  Utensils, Compass, Menu as MenuIcon, X 
 } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
 import { CartContext } from '../context/CartContext';
@@ -13,6 +13,7 @@ function NavBar() {
   const navigate = useNavigate();
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +23,11 @@ function NavBar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu on page change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
   const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
   const isActive = (path) => location.pathname === path;
 
@@ -30,13 +36,13 @@ function NavBar() {
       position: 'sticky',
       top: 0,
       zIndex: 1000,
-      padding: scrolled ? '0.75rem 2rem' : '1.15rem 2rem',
-      transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
-      background: scrolled ? 'rgba(255, 255, 255, 0.88)' : 'rgba(255, 255, 255, 0.65)',
+      padding: scrolled ? '0.75rem 1.2rem' : '1rem 1.2rem',
+      transition: 'all 0.3s ease',
+      background: scrolled ? 'rgba(255, 255, 255, 0.92)' : 'rgba(255, 255, 255, 0.78)',
       backdropFilter: 'blur(20px)',
       WebkitBackdropFilter: 'blur(20px)',
       borderBottom: '1px solid rgba(255, 255, 255, 0.6)',
-      boxShadow: scrolled ? '0 12px 36px rgba(255, 71, 19, 0.08)' : 'none'
+      boxShadow: scrolled ? '0 10px 30px rgba(255, 71, 19, 0.08)' : 'none'
     }}>
       <div style={{
         maxWidth: '1280px',
@@ -45,231 +51,266 @@ function NavBar() {
         alignItems: 'center',
         justifyContent: 'space-between'
       }}>
-        {/* Brand with animated flame badge */}
+        {/* Brand */}
         <Link to="/" style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '0.65rem',
-          fontSize: '1.65rem',
+          gap: '0.5rem',
+          fontSize: '1.45rem',
           fontWeight: 900,
           fontFamily: 'Outfit, sans-serif',
           color: 'var(--text-primary)'
         }}>
           <div style={{
-            width: '44px',
-            height: '44px',
+            width: '38px',
+            height: '38px',
             background: 'var(--primary-gradient)',
-            borderRadius: '14px',
+            borderRadius: '12px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             color: '#fff',
-            boxShadow: '0 8px 20px var(--primary-glow)',
-            transform: 'rotate(-4deg)',
-            transition: 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)'
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(12deg) scale(1.1)'}
-          onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(-4deg) scale(1)'}
-          >
-            <Flame size={24} />
+            boxShadow: '0 6px 16px var(--primary-glow)',
+            transform: 'rotate(-4deg)'
+          }}>
+            <Flame size={20} />
           </div>
           <span>Food<span style={{ color: 'var(--primary)' }}>Hub</span></span>
           <span style={{
-            fontSize: '0.65rem',
+            fontSize: '0.62rem',
             background: 'var(--primary-light)',
             color: 'var(--primary)',
-            padding: '0.2rem 0.55rem',
+            padding: '0.15rem 0.5rem',
             borderRadius: 'var(--radius-pill)',
             fontWeight: 800,
-            letterSpacing: '0.06em',
-            textTransform: 'uppercase',
-            alignSelf: 'flex-start',
-            marginTop: '0.2rem'
+            textTransform: 'uppercase'
           }}>PRO</span>
         </Link>
 
-        {/* Center Pill Nav Bar with Animated Indicators */}
-        <nav style={{
+        {/* Desktop Navigation Links */}
+        <nav className="desktop-nav" style={{
           display: 'flex',
           alignItems: 'center',
           gap: '0.4rem',
           background: 'rgba(255, 255, 255, 0.85)',
-          padding: '0.4rem 0.6rem',
+          padding: '0.35rem 0.5rem',
           borderRadius: 'var(--radius-pill)',
           border: '1px solid rgba(0,0,0,0.05)',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
+          boxShadow: '0 4px 16px rgba(0,0,0,0.03)'
         }}>
           <Link to="/" style={{
-            padding: '0.55rem 1.2rem',
+            padding: '0.5rem 1.1rem',
             borderRadius: 'var(--radius-pill)',
-            fontSize: '0.92rem',
+            fontSize: '0.9rem',
             fontWeight: 700,
             background: isActive('/') ? 'var(--primary-gradient)' : 'transparent',
             color: isActive('/') ? '#fff' : 'var(--text-primary)',
-            boxShadow: isActive('/') ? '0 6px 18px var(--primary-glow)' : 'none',
-            transition: 'all 0.25s ease'
-          }}>
-            Home
-          </Link>
+            boxShadow: isActive('/') ? '0 6px 16px var(--primary-glow)' : 'none'
+          }}>Home</Link>
 
           <Link to="/menu" style={{
-            padding: '0.55rem 1.25rem',
+            padding: '0.5rem 1.15rem',
             borderRadius: 'var(--radius-pill)',
-            fontSize: '0.92rem',
+            fontSize: '0.9rem',
             fontWeight: 700,
             display: 'flex',
             alignItems: 'center',
-            gap: '0.4rem',
+            gap: '0.35rem',
             background: isActive('/menu') ? 'var(--primary-gradient)' : 'transparent',
             color: isActive('/menu') ? '#fff' : 'var(--text-primary)',
-            boxShadow: isActive('/menu') ? '0 6px 18px var(--primary-glow)' : 'none',
-            transition: 'all 0.25s ease'
+            boxShadow: isActive('/menu') ? '0 6px 16px var(--primary-glow)' : 'none'
           }}>
             <Utensils size={15} /> Menu
           </Link>
 
           <Link to="/about" style={{
-            padding: '0.55rem 1.15rem',
+            padding: '0.5rem 1.1rem',
             borderRadius: 'var(--radius-pill)',
-            fontSize: '0.92rem',
+            fontSize: '0.9rem',
             fontWeight: 700,
             background: isActive('/about') ? 'var(--primary-gradient)' : 'transparent',
             color: isActive('/about') ? '#fff' : 'var(--text-primary)',
-            boxShadow: isActive('/about') ? '0 6px 18px var(--primary-glow)' : 'none',
-            transition: 'all 0.25s ease'
-          }}>
-            About
-          </Link>
+            boxShadow: isActive('/about') ? '0 6px 16px var(--primary-glow)' : 'none'
+          }}>About</Link>
 
           <Link to="/contact" style={{
-            padding: '0.55rem 1.15rem',
+            padding: '0.5rem 1.1rem',
             borderRadius: 'var(--radius-pill)',
-            fontSize: '0.92rem',
+            fontSize: '0.9rem',
             fontWeight: 700,
             background: isActive('/contact') ? 'var(--primary-gradient)' : 'transparent',
             color: isActive('/contact') ? '#fff' : 'var(--text-primary)',
-            boxShadow: isActive('/contact') ? '0 6px 18px var(--primary-glow)' : 'none',
-            transition: 'all 0.25s ease'
-          }}>
-            Contact
-          </Link>
+            boxShadow: isActive('/contact') ? '0 6px 16px var(--primary-glow)' : 'none'
+          }}>Contact</Link>
         </nav>
 
-        {/* Right Action Icons & Profile */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-          {/* Animated Cart Bag Pill */}
+        {/* Right Action Icons */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+          {/* Cart Icon Pill */}
           <Link to="/cart" style={{
             position: 'relative',
             display: 'flex',
             alignItems: 'center',
-            gap: '0.6rem',
+            gap: '0.45rem',
             background: totalItems > 0 ? 'var(--primary-gradient)' : 'rgba(255, 255, 255, 0.9)',
             color: totalItems > 0 ? '#fff' : 'var(--text-primary)',
-            padding: '0.6rem 1.25rem',
+            padding: '0.55rem 1.05rem',
             borderRadius: 'var(--radius-pill)',
             fontWeight: 800,
-            fontSize: '0.92rem',
+            fontSize: '0.88rem',
             border: totalItems > 0 ? 'none' : '1.5px solid rgba(0,0,0,0.06)',
-            boxShadow: totalItems > 0 ? '0 10px 24px var(--primary-glow)' : '0 2px 10px rgba(0,0,0,0.03)',
-            transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)'
-          }}
-          className={totalItems > 0 ? 'anim-pulse' : ''}
-          >
-            <ShoppingBag size={18} />
-            <span>Cart</span>
+            boxShadow: totalItems > 0 ? '0 8px 20px var(--primary-glow)' : 'none'
+          }}>
+            <ShoppingBag size={17} />
+            <span className="cart-text">Cart</span>
             {totalItems > 0 && (
               <span style={{
                 background: '#fff',
                 color: 'var(--primary)',
                 borderRadius: '50%',
-                width: '24px',
-                height: '24px',
+                width: '22px',
+                height: '22px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '0.78rem',
-                fontWeight: 900,
-                boxShadow: '0 2px 6px rgba(0,0,0,0.1)'
+                fontSize: '0.74rem',
+                fontWeight: 900
               }}>{totalItems}</span>
             )}
           </Link>
 
-          {/* User Auth state */}
-          {user ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem' }}>
-              <Link to="/my-orders" style={{
-                fontSize: '0.88rem',
-                fontWeight: 700,
-                padding: '0.6rem 1.1rem',
-                borderRadius: 'var(--radius-pill)',
-                background: 'rgba(255, 255, 255, 0.85)',
-                border: '1px solid rgba(0,0,0,0.05)',
-                color: 'var(--text-primary)'
-              }}>
-                Orders
-              </Link>
+          {/* Desktop User Buttons */}
+          <div className="desktop-user-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.55rem' }}>
+            {user ? (
+              <>
+                <Link to="/my-orders" style={{
+                  fontSize: '0.86rem',
+                  fontWeight: 700,
+                  padding: '0.55rem 0.95rem',
+                  borderRadius: 'var(--radius-pill)',
+                  background: 'rgba(255, 255, 255, 0.85)',
+                  border: '1px solid rgba(0,0,0,0.05)',
+                  color: 'var(--text-primary)'
+                }}>
+                  Orders
+                </Link>
 
-              {user.role === 'admin' && (
-                <Link to="/admin" title="Admin Portal" style={{
+                {user.role === 'admin' && (
+                  <Link to="/admin" title="Admin Portal" style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.35rem',
+                    fontSize: '0.86rem',
+                    fontWeight: 800,
+                    padding: '0.55rem 1rem',
+                    borderRadius: 'var(--radius-pill)',
+                    background: 'linear-gradient(135deg, #181c24 0%, #29303d 100%)',
+                    color: '#fff'
+                  }}>
+                    <LayoutDashboard size={15} /> Admin
+                  </Link>
+                )}
+
+                <Link to="/profile" title="Profile Details" style={{
+                  width: '38px',
+                  height: '38px',
+                  borderRadius: '50%',
+                  background: 'var(--primary-light)',
+                  color: 'var(--primary)',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.4rem',
-                  fontSize: '0.88rem',
-                  fontWeight: 800,
-                  padding: '0.6rem 1.15rem',
-                  borderRadius: 'var(--radius-pill)',
-                  background: 'linear-gradient(135deg, #181c24 0%, #29303d 100%)',
-                  color: '#fff',
-                  boxShadow: '0 6px 16px rgba(0,0,0,0.15)'
+                  justifyContent: 'center'
                 }}>
-                  <LayoutDashboard size={15} /> Admin
+                  <User size={18} />
                 </Link>
-              )}
 
-              <Link to="/profile" title="Profile Details" style={{
-                width: '42px',
-                height: '42px',
-                borderRadius: '50%',
-                background: 'var(--primary-light)',
-                color: 'var(--primary)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                border: '2px solid rgba(255, 71, 19, 0.2)'
-              }}>
-                <User size={19} />
-              </Link>
+                <button onClick={logout} title="Sign Out" style={{
+                  width: '38px',
+                  height: '38px',
+                  borderRadius: '50%',
+                  background: 'rgba(239, 68, 68, 0.1)',
+                  color: '#ef4444',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <LogOut size={16} />
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/login" style={{
+                  fontSize: '0.9rem',
+                  fontWeight: 700,
+                  padding: '0.55rem 0.95rem',
+                  color: 'var(--text-primary)'
+                }}>
+                  Sign In
+                </Link>
+                <Link to="/register" className="btn-pro-primary" style={{ padding: '0.6rem 1.25rem', fontSize: '0.88rem' }}>
+                  Join Free
+                </Link>
+              </>
+            )}
+          </div>
 
-              <button onClick={logout} title="Sign Out" style={{
-                width: '42px',
-                height: '42px',
-                borderRadius: '50%',
-                background: 'rgba(239, 68, 68, 0.1)',
-                color: '#ef4444',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                <LogOut size={17} />
-              </button>
-            </div>
-          ) : (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
-              <Link to="/login" style={{
-                fontSize: '0.94rem',
-                fontWeight: 700,
-                padding: '0.6rem 1.1rem',
-                color: 'var(--text-primary)'
-              }}>
-                Sign In
-              </Link>
-              <Link to="/register" className="btn-pro-primary" style={{ padding: '0.65rem 1.45rem', fontSize: '0.92rem' }}>
-                Join Free
-              </Link>
-            </div>
-          )}
+          {/* Mobile Hamburger Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="mobile-hamburger"
+            style={{
+              width: '40px',
+              height: '40px',
+              borderRadius: '12px',
+              background: 'rgba(0,0,0,0.04)',
+              display: 'none',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'var(--text-primary)'
+            }}
+          >
+            {mobileMenuOpen ? <X size={22} /> : <MenuIcon size={22} />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Drawer Navigation Menu */}
+      {mobileMenuOpen && (
+        <div style={{
+          marginTop: '0.8rem',
+          padding: '1.2rem',
+          borderRadius: '20px',
+          background: 'rgba(255, 255, 255, 0.98)',
+          boxShadow: '0 20px 40px rgba(0,0,0,0.12)',
+          border: '1px solid rgba(0,0,0,0.06)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.6rem'
+        }}>
+          <Link to="/" style={{ padding: '0.7rem 1rem', borderRadius: '12px', fontWeight: 800, background: isActive('/') ? 'var(--primary-light)' : 'transparent', color: isActive('/') ? 'var(--primary)' : 'inherit' }}>Home</Link>
+          <Link to="/menu" style={{ padding: '0.7rem 1rem', borderRadius: '12px', fontWeight: 800, background: isActive('/menu') ? 'var(--primary-light)' : 'transparent', color: isActive('/menu') ? 'var(--primary)' : 'inherit' }}>Explore Menu</Link>
+          <Link to="/about" style={{ padding: '0.7rem 1rem', borderRadius: '12px', fontWeight: 800, background: isActive('/about') ? 'var(--primary-light)' : 'transparent', color: isActive('/about') ? 'var(--primary)' : 'inherit' }}>About Us</Link>
+          <Link to="/contact" style={{ padding: '0.7rem 1rem', borderRadius: '12px', fontWeight: 800, background: isActive('/contact') ? 'var(--primary-light)' : 'transparent', color: isActive('/contact') ? 'var(--primary)' : 'inherit' }}>Contact</Link>
+
+          <div style={{ borderTop: '1px solid rgba(0,0,0,0.06)', marginTop: '0.4rem', paddingTop: '0.8rem', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+            {user ? (
+              <>
+                <Link to="/my-orders" style={{ padding: '0.7rem 1rem', borderRadius: '12px', fontWeight: 800 }}>My Orders</Link>
+                <Link to="/profile" style={{ padding: '0.7rem 1rem', borderRadius: '12px', fontWeight: 800 }}>Account Profile</Link>
+                {user.role === 'admin' && (
+                  <Link to="/admin" style={{ padding: '0.7rem 1rem', borderRadius: '12px', fontWeight: 800, background: 'var(--dark)', color: '#fff' }}>Admin Dashboard</Link>
+                )}
+                <button onClick={logout} style={{ padding: '0.7rem 1rem', borderRadius: '12px', fontWeight: 800, background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', textAlign: 'left' }}>Sign Out</button>
+              </>
+            ) : (
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.8rem', marginTop: '0.4rem' }}>
+                <Link to="/login" style={{ padding: '0.75rem', borderRadius: '12px', fontWeight: 800, textAlign: 'center', background: 'rgba(0,0,0,0.04)' }}>Sign In</Link>
+                <Link to="/register" className="btn-pro-primary" style={{ padding: '0.75rem', borderRadius: '12px', textAlign: 'center' }}>Sign Up</Link>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </header>
   );
 }
